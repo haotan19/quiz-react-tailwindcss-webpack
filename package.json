@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "build2": "tailwindcss build src/tailwind.css -o src/index.css && yarn build",
+    "style": "tailwindcss build src/styles/globals.css -o src/assets/styles/tailwind.css"
   },
   "dependencies": {
     "react": "^17.0.2",

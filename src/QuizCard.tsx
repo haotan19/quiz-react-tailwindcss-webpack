@@ -11,7 +11,7 @@ const QuizCard: React.FC<Props> = ({ children }) => {
   return (
     <div
       style={style}
-      className="bg-white rounded-md overflow-hidden shadow-xl w-full h-full max-w-sm sm:max-w-xl md:max-w-3xl mx-auto container px-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      className="bg-white rounded-md overflow-hidden shadow-xl w-full h-full max-w-sm sm:max-w-xl md:max-w-3xl mx-auto  px-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
     >
       {children}
     </div>
