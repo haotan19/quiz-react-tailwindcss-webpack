@@ -1,9 +1,9 @@
-import QuizNavigation from "./QuizNavigation";
 import React, { useState } from "react";
-import { useSpring, useTransition, useTrail, a, animated } from "react-spring";
+import { a, useTrail } from "react-spring";
 // import QuizDataItem from "./QuizDataItem";
 import BackgroundOverlay from "./BackgroundOverlay";
 import QuizCard from "./QuizCard";
+import QuizNavigation from "./QuizNavigation";
 import { DataItem } from "./utils";
 
 interface TrailProps {
@@ -57,7 +57,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
 
           let gridClassName = "grid gap-2 grid-cols-2 md:grid-cols-3 mt-10";
           let btnClassName = "btn";
-          let additionalPaddingRight = ""
+          let additionalPaddingRight = "";
 
           let trailAnimation = false;
 
@@ -65,7 +65,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
           if (dataItem.answers.some(tooManyCharacters)) {
             gridClassName = "grid gap-2 grid-cols-1 mt-6";
             btnClassName += " text-left max-w-prose";
-            additionalPaddingRight = "pr-3"
+            additionalPaddingRight = "pr-3";
           } else {
             btnClassName += " whitespace-nowrap";
           }
