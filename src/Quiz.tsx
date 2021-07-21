@@ -42,7 +42,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
 
   let quizClassName = "quiz";
   if (active) {
-    quizClassName += " quiz-active";
+    quizClassName += " quiz-active z-50 ";
     if (currentQuestion === -1) setCurrentQuestion(0); // First Time Active => Trigger Animation
   }
 
