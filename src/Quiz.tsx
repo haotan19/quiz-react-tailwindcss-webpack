@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { a, useTrail } from "react-spring";
 // import QuizDataItem from "./QuizDataItem";
 import BackgroundOverlay from "./BackgroundOverlay";
@@ -40,14 +40,14 @@ interface QuizProps {
 const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   const [currentQuestion, setCurrentQuestion] = useState(-1);
 
-  let quizClassName = "quiz";
-  if (active) {
-    quizClassName += " quiz-active z-50 ";
-    if (currentQuestion === -1) setCurrentQuestion(0); // First Time Active => Trigger Animation
-  }
+  useEffect(() => {
+    if (active) {
+      if (currentQuestion === -1) setCurrentQuestion(0); // First Time Active => Trigger Animation
+    }
+  }, [active]);
 
   return (
-    <div className={quizClassName}>
+    <div className={active ? "quiz quiz-active" : "quiz"}>
       <BackgroundOverlay onClick={() => setActive(false)} />
       <QuizCard>
         {quizData.map((dataItem) => {
@@ -56,7 +56,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
           wrapperClassName += " py-8 sm:py-16 md:py-24 overflow-hidden";
 
           let gridClassName = "grid gap-2 grid-cols-2 md:grid-cols-3 mt-10";
-          let btnClassName = "btn";
+          let btnClassName = "quiz-btn";
           let additionalPaddingRight = "";
 
           let trailAnimation = false;

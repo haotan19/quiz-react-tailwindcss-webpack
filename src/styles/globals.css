@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 .quiz {
-  @apply font-Hel hidden invisible;
+  @apply font-Hel hidden invisible z-50;
   height: 100vh;
   width: 100vw;
   position: fixed;
@@ -26,11 +26,11 @@
   /* background-color: rgba(0, 0, 0, 0.4); */
 }
 
-.btn {
+.quiz-btn {
   @apply border border-black rounded w-full py-3 px-6;
 }
 
-.btn .btn--full-length {
+.quiz-btn .quiz-btn--full-length {
   @apply w-full;
 }
 

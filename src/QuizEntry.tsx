@@ -98,7 +98,7 @@ const CallToActionButton: React.FC<BtnProps> = ({ setActive }) => {
   const [btnText, setBtnText] = useState("Start the quiz");
   return (
     <button
-      className="btn max-w-sm"
+      className="quiz-btn max-w-sm"
       onClick={() => {
         setActive(true);
         setBtnText("Resume quiz");
