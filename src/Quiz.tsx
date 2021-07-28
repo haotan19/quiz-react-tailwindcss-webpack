@@ -71,7 +71,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState({ 0: 0, 1: 0, 2: 0 });
   const [selectedAnswers, setSelectedAnswers] = useState([0]);
-  const [recommandationBundle, setRecommandationBundle] = useState({});
+  const [recommendationBundle, setRecommendationBundle] = useState({});
 
   useEffect(() => {
     if (active) {
@@ -82,7 +82,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   useEffect(() => {
     if (currentQuestion > quizData.length) {
       // TODO: Submit all answers and calculate results
-      setRecommandationBundle(fetchFakeTestProduct());
+      setRecommendationBundle(fetchFakeTestProduct());
     }
   }, [currentQuestion]);
 
