@@ -3,52 +3,43 @@ import React, { useState, Suspense, useEffect } from "react";
 // import Quiz from "./Quiz";
 const Quiz = React.lazy(() => import("./Quiz"));
 
-import { DataItem } from "utils";
+import { DataItem, Bundle } from "./utils";
 
-const QUIZ_DATA: DataItem[] = [
-  {
-    id: 0,
-    question: "How old are you?",
-    answers: ["Under 20", "21-30", "31-45", "46-65", "66+"],
-  },
-  {
-    id: 1,
-    question: "Which term best describes your skin tone?",
-    answers: [
-      "Very fair",
-      "Fair",
-      "Medium",
-      "Medium - Olive",
-      "Dark",
-      "Very dark",
-    ],
-  },
-  {
-    id: 2,
-    question: "Which best describes your current environment?",
-    answers: [
-      "It's very dry",
-      "It's very humid",
-      "The weather isn't dry or humid - It's Quite Pleasant",
-    ],
-  },
-  {
-    id: 3,
-    question: "What best describes your skin?",
-    answers: [
-      "My skin produces oil all over my face, or in my t-zone",
-      "My skin produces oil all over my face, or in my t-zone; It may get tight or feel dry when harsh acne products are used",
-      "My skin is neither very oily nor very dry",
-      "My skin is pretty dry and doesn't really produce oil",
-      "My skin is very dry and produces no oil",
-    ],
-  },
-  {
-    id: 4,
-    question: "How often do you experience breakouts?",
-    answers: ["Daily", "Weekly", "Monthly", "Rarely/Never"],
-  },
-];
+const q1 = new DataItem(1, "Which is your biggest skin care concern?")
+  .addAnswer("A lackluster complexion in need of a polish", Bundle.BALANCED)
+  .addAnswer("Those crow's feet are creeping in!", Bundle.DRY)
+  .addAnswer("You want that glow, but you just feel greasy", Bundle.OILY);
+const q2 = new DataItem(2, "Which skin type is most like yours?", 3)
+  .addAnswer("On the dry side", Bundle.DRY)
+  .addAnswer("Even and balanced", Bundle.BALANCED)
+  .addAnswer("Oily and shiny", Bundle.OILY); // Typo in the chart?
+const q3 = new DataItem(3, "How often do you experience breakouts?") // Typo in the chart?
+  .addAnswer("Never", Bundle.DRY)
+  .addAnswer("Rarely", Bundle.BALANCED)
+  .addAnswer("Often", Bundle.OILY);
+const q4 = new DataItem(4, "How old are you?", 0.5)
+  .addAnswer("18-24", Bundle.OILY)
+  .addAnswer("25-34", Bundle.BALANCED)
+  .addAnswer("34-44", Bundle.BALANCED)
+  .addAnswer("45+", Bundle.DRY);
+const q5 = new DataItem(5, "What's your go-to foundation finish?", 0.5)
+  .addAnswer("A classy, dewy, glossed look", Bundle.DRY)
+  .addAnswer("All natural, keepin' it real", Bundle.BALANCED) // Typo in the chart?
+  .addAnswer("Matte to combat unwanted shine", Bundle.OILY);
+const q6 = new DataItem(
+  6,
+  "How would you describe your current skincare routine?",
+  0.5
+)
+  .addAnswer("A 10 step, vogue worthy regimen", Bundle.DRY)
+  .addAnswer("Wash and moisturize. Keepin' it simple.", Bundle.BALANCED)
+  .addAnswer("Cracking out the makeup wipes at midnight", Bundle.DRY);
+const q7 = new DataItem(7, "Describe the environment where you live:", 0.5)
+  .addAnswer("Dry and desert-like", Bundle.DRY)
+  .addAnswer("Hot + Urban: Livin' that city life", Bundle.BALANCED)
+  .addAnswer("Coastal and humid", Bundle.OILY);
+
+const QUIZ_DATA: DataItem[] = [q1, q2, q3, q4, q5, q6, q7];
 
 window.addEventListener("scroll", () => {
   document.documentElement.style.setProperty(

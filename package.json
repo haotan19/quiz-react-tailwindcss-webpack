@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack --mode development",
+    "dev": "webpack --watch --mode development",
     "build": "webpack --mode production",
     "build2": "tailwindcss build src/tailwind.css -o src/index.css && yarn build",
     "style": "tailwindcss build src/styles/globals.css -o src/assets/styles/tailwind.css"

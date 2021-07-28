@@ -62,7 +62,9 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
           let trailAnimation = false;
 
           const tooManyCharacters = (text: string) => text.length > 18;
-          if (dataItem.answers.some(tooManyCharacters)) {
+          if (
+            dataItem.answers.some((_answer) => tooManyCharacters(_answer.text))
+          ) {
             gridClassName = "grid gap-2 grid-cols-1 mt-6";
             btnClassName += " text-left max-w-prose";
             additionalPaddingRight = "pr-3";
@@ -80,12 +82,15 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
               <ul className="flex-1 overflow-y-auto relative">
                 <Trail open={trailAnimation} className={gridClassName}>
                   {dataItem.answers.map((answer, index) => (
-                    <li className={additionalPaddingRight} key={answer + index}>
+                    <li
+                      className={additionalPaddingRight}
+                      key={answer.text + index}
+                    >
                       <button
                         className={btnClassName}
                         onClick={() => setCurrentQuestion((s) => s + 1)}
                       >
-                        {answer}
+                        {answer.text}
                       </button>
                     </li>
                   ))}
