@@ -38,11 +38,11 @@ interface QuizProps {
 }
 
 const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
-  const [currentQuestion, setCurrentQuestion] = useState(-1);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
   useEffect(() => {
     if (active) {
-      if (currentQuestion === -1) setCurrentQuestion(0); // First Time Active => Trigger Animation
+      if (currentQuestion === 0) setCurrentQuestion(1); // First Time Active => Trigger Animation
     }
   }, [active]);
 
