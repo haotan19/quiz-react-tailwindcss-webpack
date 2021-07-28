@@ -4,7 +4,36 @@ import { a, useTrail } from "react-spring";
 import BackgroundOverlay from "./BackgroundOverlay";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
-import { DataItem } from "./utils";
+import { DataItem, Bundle } from "./utils";
+
+const fetchFakeTestProduct = () => ({
+  title: "This is a test title",
+  handle: "test-handle",
+  images: [
+    "//cdn.shopify.com/s/files/1/0106/3986/7961/products/combination-skin.png?v=1607391178",
+  ],
+});
+
+const fetchProduct = (bundle: Bundle) => {
+  let fetchStr = "";
+  switch (bundle) {
+    case Bundle.DRY:
+      fetchStr = "/products/dry-mature-skin-bundle.js";
+      break;
+    case Bundle.BALANCED:
+      fetchStr = "/products/balanced-skin-bundle.js";
+      break;
+    case Bundle.OILY:
+      fetchStr = "/products/combination-skin-bundle.js";
+      break;
+  }
+  let result;
+  fetch(fetchStr)
+    .then((response) => response.json())
+    .then((res) => (result = res))
+    .catch((err) => console.log(err));
+  return result;
+};
 
 interface TrailProps {
   open: boolean;
