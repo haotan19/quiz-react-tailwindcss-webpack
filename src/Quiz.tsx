@@ -4,37 +4,14 @@ import { a, useTrail } from "react-spring";
 import BackgroundOverlay from "./BackgroundOverlay";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
-import { DataItem, Bundle, Answer } from "./utils";
-
-const fetchFakeTestProduct = () => ({
-  title: "This is a test title",
-  handle: "test-handle",
-  price: 12900,
-  images: [
-    "//cdn.shopify.com/s/files/1/0106/3986/7961/products/combination-skin.png?v=1607391178",
-  ],
-});
-
-const fetchProduct = (bundle: Bundle) => {
-  let fetchStr = "";
-  switch (bundle) {
-    case Bundle.DRY:
-      fetchStr = "/products/dry-mature-skin-bundle.js";
-      break;
-    case Bundle.BALANCED:
-      fetchStr = "/products/balanced-skin-bundle.js";
-      break;
-    case Bundle.OILY:
-      fetchStr = "/products/combination-skin-bundle.js";
-      break;
-  }
-  let result;
-  fetch(fetchStr)
-    .then((response) => response.json())
-    .then((res) => (result = res))
-    .catch((err) => console.log(err));
-  return result;
-};
+import {
+  DataItem,
+  Bundle,
+  Answer,
+  fetchFakeTestProduct,
+  fetchProduct,
+  calculateResult,
+} from "./utils";
 
 interface TrailProps {
   open: boolean;
@@ -69,9 +46,19 @@ interface QuizProps {
 
 const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState({ 0: 0, 1: 0, 2: 0 });
   const [selectedAnswers, setSelectedAnswers] = useState([0]);
+  const [answersWeight, setAnswersWeight] = useState([0]);
   const [recommendationBundle, setRecommendationBundle] = useState({});
+
+  useEffect(() => {
+    console.log(recommendationBundle);
+  }, [recommendationBundle]);
+
+  useEffect(() => {
+    const newWeights = [0]; // 0 for question 0 which doesn't exist
+    quizData.map((item) => newWeights.push(item.answerWeight));
+    setAnswersWeight(newWeights);
+  }, [quizData]);
 
   useEffect(() => {
     if (active) {
@@ -82,7 +69,12 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   useEffect(() => {
     if (currentQuestion > quizData.length) {
       // TODO: Submit all answers and calculate results
-      setRecommendationBundle(fetchFakeTestProduct());
+      let recommendationResult = calculateResult(
+        selectedAnswers,
+        answersWeight
+      );
+      setRecommendationBundle(fetchFakeTestProduct(recommendationResult));
+      // setRecommendationBundle(fetchProduct(recommendationResult));
     }
   }, [currentQuestion]);
 

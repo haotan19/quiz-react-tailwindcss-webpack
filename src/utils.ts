@@ -13,7 +13,7 @@ export class DataItem {
   id: number;
   question: string;
   answers: Answer[];
-  answerWeight?: number;
+  answerWeight: number;
 
   constructor(id: number, question: string, answerWeight?: number) {
     this.id = id;
@@ -30,3 +30,56 @@ export class DataItem {
     return this;
   }
 }
+
+export const calculateResult = (
+  selectedAnswers: number[],
+  answersWeight: number[]
+) => {
+  // 0 is DRY, 1 is BALANCED, 2 is OILY
+  // const score = { 0: 0, 1: 0, 2: 0 };
+  const score = [0, 0, 0];
+  selectedAnswers.map(
+    (answer, idx) => (score[answer] = score[answer] + 1 * answersWeight[idx])
+  );
+  // https://stackoverflow.com/questions/29493455/get-array-index-by-max-value
+  switch (score.indexOf(Math.max.apply(null, score))) {
+    case 0:
+      return Bundle.DRY;
+    case 1:
+      return Bundle.BALANCED;
+    case 2:
+      return Bundle.OILY;
+  }
+  console.error("Quiz calculation failed, fall back to default");
+  return Bundle.BALANCED;
+};
+
+export const fetchFakeTestProduct = (bundle: Bundle) => ({
+  title: "This is a test title, bundle is:" + bundle,
+  handle: "test-handle",
+  price: 12900,
+  images: [
+    "//cdn.shopify.com/s/files/1/0106/3986/7961/products/combination-skin.png?v=1607391178",
+  ],
+});
+
+export const fetchProduct = (bundle: Bundle) => {
+  let fetchStr = "";
+  switch (bundle) {
+    case Bundle.DRY:
+      fetchStr = "/products/dry-mature-skin-bundle.js";
+      break;
+    case Bundle.BALANCED:
+      fetchStr = "/products/balanced-skin-bundle.js";
+      break;
+    case Bundle.OILY:
+      fetchStr = "/products/combination-skin-bundle.js";
+      break;
+  }
+  let result;
+  fetch(fetchStr)
+    .then((response) => response.json())
+    .then((res) => (result = res))
+    .catch((err) => console.log(err));
+  return result;
+};
