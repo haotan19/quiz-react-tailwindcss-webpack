@@ -55,7 +55,8 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
             "w-full h-full absolute top-0 left-1/2 transform -translate-x-1/2 max-w-prose px-6 md:px-0 flex flex-col";
           wrapperClassName += " py-8 sm:py-16 md:py-24 overflow-hidden";
 
-          let gridClassName = "grid gap-2 grid-cols-2 md:grid-cols-3 mt-10";
+          let gridClassName =
+            "grid gap-2 grid-cols-2 md:grid-cols-3 mt-6 md:mt-10";
           let btnClassName = "quiz-btn";
           let additionalPaddingRight = "";
 
@@ -78,7 +79,9 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
 
           return (
             <div key={dataItem.id} className={wrapperClassName}>
-              <h2 className="text-2xl sm:text-3xl ">{dataItem.question}</h2>
+              <h2 className="text-2xl sm:text-3xl normal-case tracking-normal">
+                {dataItem.question}
+              </h2>
               <ul className="flex-1 overflow-y-auto relative">
                 <Trail open={trailAnimation} className={gridClassName}>
                   {dataItem.answers.map((answer, index) => (
