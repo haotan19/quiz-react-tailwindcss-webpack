@@ -70,16 +70,21 @@ interface QuizProps {
 const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState({ 0: 0, 1: 0, 2: 0 });
-
-  useEffect(() => {
-    console.log(score);
-  }, [score]);
+  const [selectedAnswers, setSelectedAnswers] = useState([0]);
+  const [recommandationBundle, setRecommandationBundle] = useState({});
 
   useEffect(() => {
     if (active) {
       if (currentQuestion === 0) setCurrentQuestion(1); // First Time Active => Trigger Animation
     }
   }, [active]);
+
+  useEffect(() => {
+    if (currentQuestion > quizData.length) {
+      // TODO: Submit all answers and calculate results
+      setRecommandationBundle(fetchFakeTestProduct());
+    }
+  }, [currentQuestion]);
 
   return (
     <div className={active ? "quiz quiz-active" : "quiz"}>
@@ -115,6 +120,11 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
           } else trailAnimation = true;
 
           const handleAnswerClicked = (answer: Answer) => {
+            setSelectedAnswers((arr) => {
+              const newArr = [...arr];
+              newArr[questionData.id] = answer.bundle;
+              return newArr;
+            });
             setCurrentQuestion((s) => s + 1);
           };
 
