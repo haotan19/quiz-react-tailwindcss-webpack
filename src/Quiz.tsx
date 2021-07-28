@@ -4,11 +4,12 @@ import { a, useTrail } from "react-spring";
 import BackgroundOverlay from "./BackgroundOverlay";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
-import { DataItem, Bundle } from "./utils";
+import { DataItem, Bundle, Answer } from "./utils";
 
 const fetchFakeTestProduct = () => ({
   title: "This is a test title",
   handle: "test-handle",
+  price: 12900,
   images: [
     "//cdn.shopify.com/s/files/1/0106/3986/7961/products/combination-skin.png?v=1607391178",
   ],
@@ -68,6 +69,11 @@ interface QuizProps {
 
 const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState({ 0: 0, 1: 0, 2: 0 });
+
+  useEffect(() => {
+    console.log(score);
+  }, [score]);
 
   useEffect(() => {
     if (active) {
@@ -79,7 +85,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
     <div className={active ? "quiz quiz-active" : "quiz"}>
       <BackgroundOverlay onClick={() => setActive(false)} />
       <QuizCard>
-        {quizData.map((dataItem) => {
+        {quizData.map((questionData) => {
           let wrapperClassName =
             "w-full h-full absolute top-0 left-1/2 transform -translate-x-1/2 max-w-prose px-6 md:px-0 flex flex-col";
           wrapperClassName += " py-8 sm:py-16 md:py-24 overflow-hidden";
@@ -93,7 +99,9 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
 
           const tooManyCharacters = (text: string) => text.length > 18;
           if (
-            dataItem.answers.some((_answer) => tooManyCharacters(_answer.text))
+            questionData.answers.some((_answer) =>
+              tooManyCharacters(_answer.text)
+            )
           ) {
             gridClassName = "grid gap-2 grid-cols-1 mt-6";
             btnClassName += " text-left max-w-prose";
@@ -102,25 +110,29 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
             btnClassName += " whitespace-nowrap";
           }
 
-          if (dataItem.id !== currentQuestion) {
+          if (questionData.id !== currentQuestion) {
             wrapperClassName += " hidden";
           } else trailAnimation = true;
 
+          const handleAnswerClicked = (answer: Answer) => {
+            setCurrentQuestion((s) => s + 1);
+          };
+
           return (
-            <div key={dataItem.id} className={wrapperClassName}>
+            <div key={questionData.id} className={wrapperClassName}>
               <h2 className="text-2xl sm:text-3xl normal-case tracking-normal">
-                {dataItem.question}
+                {questionData.question}
               </h2>
               <ul className="flex-1 overflow-y-auto relative">
                 <Trail open={trailAnimation} className={gridClassName}>
-                  {dataItem.answers.map((answer, index) => (
+                  {questionData.answers.map((answer, index) => (
                     <li
                       className={additionalPaddingRight}
                       key={answer.text + index}
                     >
                       <button
                         className={btnClassName}
-                        onClick={() => setCurrentQuestion((s) => s + 1)}
+                        onClick={() => handleAnswerClicked(answer)}
                       >
                         {answer.text}
                       </button>
@@ -132,6 +144,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
               <QuizNavigation
                 currentQuestion={currentQuestion}
                 setCurrentQuestion={setCurrentQuestion}
+                length={quizData.length}
                 additionalPaddingRight={additionalPaddingRight}
               ></QuizNavigation>
             </div>

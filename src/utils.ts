@@ -1,10 +1,10 @@
 export enum Bundle {
-  DRY,
-  BALANCED,
-  OILY,
+  DRY = 0,
+  BALANCED = 1,
+  OILY = 2,
 }
 
-interface Answer {
+export interface Answer {
   text: string;
   bundle: Bundle;
 }
