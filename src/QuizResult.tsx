@@ -1,4 +1,7 @@
+import { LoadingSpinner } from "./LoadingSpinner";
 import React from "react";
+
+const MAX_RESULT_CONTENT_HEIGHT = "20rem";
 
 interface Props {
   recommendationBundle: any;
@@ -6,32 +9,35 @@ interface Props {
 
 const QuizResult = ({ recommendationBundle }: Props) => {
   if (recommendationBundle.images && recommendationBundle.images[0]) {
-    const mainImg = (
-      <img
-        className="max-h-96"
-        src={recommendationBundle.images[0]}
-        alt={recommendationBundle}
-      />
-    );
     return (
-      <div className="p-4 h-full flex flex-col justify-center gap-3 md:gap-10">
-        <div>
-          {/* The image we use have a lot of white spaces on the top */}
-          {/* So we use a <div> to remove the gap */}
-          <h3 className="text-2xl text-center">RESULT</h3>
-          {mainImg}
+      <div className="p-4 pb-10 md:p-10 h-full flex flex-col">
+        <div className="flex relative">
+          <h3 className="w-full text-2xl text-center ">RESULT</h3>
         </div>
-
-        <h3 className="text-2xl font-bold">{recommendationBundle.title}</h3>
-        <p>
-          <span className="mr-4">$44.90</span>
-          <span className="line-through text-gray-300">$49.85</span>
-        </p>
-        <p className="max-w-prose">
-          We put a short sentence here to describe this product. We put a short
-          sentence here to describe this product.
-        </p>
-        <button className="quiz-btn font-bold mt-4">ADD TO CART</button>
+        <div className="h-full w-full flex flex-col md:flex-row justify-center items-center">
+          <ProductImg recommendationBundle={recommendationBundle} />
+          <ProductContent>
+            <div className="transform md:translate-y-8">
+              <h3 className="text-2xl font-bold">
+                {recommendationBundle.title}
+              </h3>
+              <p>
+                <span className="mr-4">$44.90</span>
+                <span className="line-through text-gray-300">$49.85</span>
+              </p>
+              <p className="max-w-prose">
+                We put a short sentence here to describe this product. We put a
+                short sentence here to describe this product.
+              </p>
+            </div>
+            <button
+              className="quiz-btn font-bold mt-4 
+                        md:absolute md:bottom-0"
+            >
+              ADD TO CART
+            </button>
+          </ProductContent>
+        </div>
       </div>
     );
   } else {
@@ -41,32 +47,33 @@ const QuizResult = ({ recommendationBundle }: Props) => {
 
 export default QuizResult;
 
-const LoadingSpinner = () => (
-  <div className="h-full w-full flex justify-center items-center">
-    <svg
-      className="quiz-loading"
-      version="1.1"
-      id="loader-1"
-      x="0px"
-      y="0px"
-      width="40px"
-      height="40px"
-      viewBox="0 0 50 50"
+interface PCProps {
+  children: React.ReactNode;
+}
+
+const ProductContent = ({ children }: PCProps) => {
+  const productContentStyle = {
+    maxHeight: MAX_RESULT_CONTENT_HEIGHT,
+  };
+  return (
+    <div
+      className="relative flex flex-col justify-between max-w-sm md:max-w-xs md:ml-12 h-full"
+      style={productContentStyle}
     >
-      <path
-        fill="#000"
-        d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z"
-      >
-        <animateTransform
-          attributeType="xml"
-          attributeName="transform"
-          type="rotate"
-          from="0 25 25"
-          to="360 25 25"
-          dur="0.6s"
-          repeatCount="indefinite"
-        />
-      </path>
-    </svg>
-  </div>
-);
+      {children}
+    </div>
+  );
+};
+
+const ProductImg = ({ recommendationBundle }: Props) => {
+  const imgStyles = {
+    maxHeight: MAX_RESULT_CONTENT_HEIGHT,
+    background: `URL(${recommendationBundle.images[0]})`,
+    backgroundPosition: "center",
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
+    height: "100%",
+    width: "100%",
+  };
+  return <div style={imgStyles} className="max-w-sm mb-4 md:mb-0"></div>;
+};

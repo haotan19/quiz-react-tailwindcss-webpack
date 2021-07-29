@@ -48,3 +48,16 @@
     rgba(255, 255, 255, 1)
   );
 }
+
+.quiz-card-max-h {
+  max-height: 90vh;
+  height: 768px;
+}
+
+/* md: */
+@media (min-width: 768px) {
+  .quiz-card-max-h {
+    max-height: 85vh;
+    /* height: 768px; */
+  }
+}

@@ -7,10 +7,9 @@ import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
 import {
   DataItem,
-  Bundle,
   Answer,
   fetchFakeTestProduct,
-  fetchProduct,
+  // fetchProduct,
   calculateResult,
 } from "./utils";
 
@@ -81,7 +80,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
       <QuizCard>
         {quizData.map((questionData) => {
           let wrapperClassName =
-            "w-full h-full absolute top-0 left-1/2 transform -translate-x-1/2 max-w-prose px-6 md:px-0 flex flex-col";
+            "w-full h-full absolute top-0 left-1/2 transform -translate-x-1/2 max-w-prose px-6 py-10 md:px-0 flex flex-col";
           wrapperClassName += " py-8 sm:py-16 md:py-24 overflow-hidden";
 
           let gridClassName =
