@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { a, useTrail } from "react-spring";
 // import QuizDataItem from "./QuizDataItem";
+import QuizResult from "./QuizResult";
 import BackgroundOverlay from "./BackgroundOverlay";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
@@ -51,10 +52,6 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   const [recommendationBundle, setRecommendationBundle] = useState({});
 
   useEffect(() => {
-    console.log(recommendationBundle);
-  }, [recommendationBundle]);
-
-  useEffect(() => {
     const newWeights = [0]; // 0 for question 0 which doesn't exist
     quizData.map((item) => newWeights.push(item.answerWeight));
     setAnswersWeight(newWeights);
@@ -94,13 +91,13 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
 
           let trailAnimation = false;
 
-          const tooManyCharacters = (text: string) => text.length > 18;
+          const tooManyCharacters = (text: string) => text.length > 15;
           if (
             questionData.answers.some((_answer) =>
               tooManyCharacters(_answer.text)
             )
           ) {
-            gridClassName = "grid gap-2 grid-cols-1 mt-6";
+            gridClassName = "grid gap-2 grid-cols-1 mt-6 md:mt-10";
             btnClassName += " text-left max-w-prose";
             additionalPaddingRight = "pr-3";
           } else {
@@ -141,7 +138,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
                     </li>
                   ))}
                 </Trail>
-                <div className="white-overlay"></div>
+                <div className="white-overlay pointer-events-none"></div>
               </ul>
               <QuizNavigation
                 currentQuestion={currentQuestion}
@@ -152,7 +149,9 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
             </div>
           );
         })}
-        {currentQuestion > quizData.length && <div>Success!!!</div>}
+        {currentQuestion > quizData.length && (
+          <QuizResult recommendationBundle={recommendationBundle} />
+        )}
       </QuizCard>
     </div>
   );
