@@ -1,7 +1,7 @@
 import React, { useState, Suspense, useEffect } from "react";
 
-// import Quiz from "./Quiz";
-const Quiz = React.lazy(() => import("./Quiz"));
+import Quiz from "./Quiz";
+// const Quiz = React.lazy(() => import("./Quiz"));
 
 import { DataItem, Bundle } from "./utils";
 

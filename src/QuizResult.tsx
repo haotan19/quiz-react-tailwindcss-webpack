@@ -35,7 +35,7 @@ const QuizResult = ({ recommendationBundle }: Props) => {
             className="quiz-btn font-bold mt-4 
                                 md:absolute md:bottom-0"
             onClick={() => {
-              bundleAddToCart(recommendationBundle.id);
+              bundleAddToCart(recommendationBundle.variants[0].id);
             }}
           >
             ADD TO CART
