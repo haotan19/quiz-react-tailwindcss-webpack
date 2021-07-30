@@ -86,11 +86,9 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   }, [currentQuestion]);
 
   useEffect(() => {
-    console.warn("The bundle chagned!");
+    console.warn("The bundle changed!");
     console.log(recommendationBundle);
   }, [recommendationBundle]);
-
-  console.log("Quiz mounted");
 
   return (
     <div className={active ? "quiz quiz-active" : "quiz"}>
