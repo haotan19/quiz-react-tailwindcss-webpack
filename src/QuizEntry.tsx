@@ -1,9 +1,8 @@
-import React, { useState, Suspense, useEffect } from "react";
-
+import React, { Suspense, useEffect, useState } from "react";
 import Quiz from "./Quiz";
 // const Quiz = React.lazy(() => import("./Quiz"));
+import { Bundle, DataItem } from "./utils";
 
-import { DataItem, Bundle } from "./utils";
 
 const q1 = new DataItem(1, "Which is your biggest skin care concern?")
   .addAnswer("A lackluster complexion in need of a polish", Bundle.BALANCED)
@@ -50,6 +49,8 @@ window.addEventListener("scroll", () => {
 
 const QuizEntry = () => {
   const [active, setActive] = useState(false);
+  const [btnText, setBtnText] = useState("Start the quiz");
+  const [finishedQuiz, setFinishedQuiz] = useState(false)
 
   useEffect(() => {
     const body = document.body;
@@ -65,6 +66,12 @@ const QuizEntry = () => {
       body.style.top = "";
       window.scrollTo(0, parseInt(scrollY || "0") * -1);
     }
+
+    if(finishedQuiz){
+      setBtnText("Show my result")
+    } else if(active) {
+      setBtnText("Resume quiz")
+    }
   }, [active]);
 
   return (
@@ -73,9 +80,9 @@ const QuizEntry = () => {
       <p className="text-center text-lg">
         Ready to find the right skincare products?
       </p>
-      <CallToActionButton setActive={setActive} />
+      <CallToActionButton setActive={setActive} btnText={btnText} />
       <Suspense fallback={<div />}>
-        <Quiz quizData={QUIZ_DATA} active={active} setActive={setActive} />
+        <Quiz quizData={QUIZ_DATA} active={active} setActive={setActive} setFinishedQuiz={setFinishedQuiz}/>
       </Suspense>
     </section>
   );
@@ -83,16 +90,15 @@ const QuizEntry = () => {
 
 interface BtnProps {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  btnText: string;
 }
 
-const CallToActionButton: React.FC<BtnProps> = ({ setActive }) => {
-  const [btnText, setBtnText] = useState("Start the quiz");
+const CallToActionButton: React.FC<BtnProps> = ({ setActive, btnText }) => {
   return (
     <button
       className="quiz-btn max-w-sm"
       onClick={() => {
         setActive(true);
-        setBtnText("Resume quiz");
       }}
     >
       {btnText}

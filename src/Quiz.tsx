@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { a, useTrail } from "react-spring";
-// import QuizDataItem from "./QuizDataItem";
-import QuizResult from "./QuizResult";
 import BackgroundOverlay from "./BackgroundOverlay";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
+// import QuizDataItem from "./QuizDataItem";
+import QuizResult from "./QuizResult";
 import {
-  DataItem,
   Answer,
-  // fetchFakeTestProduct,
-  fetchProduct,
   // Bundle,
   calculateResult,
+  DataItem,
+  // fetchFakeTestProduct,
+  fetchProduct,
 } from "./utils";
 
 interface TrailProps {
@@ -43,9 +43,10 @@ interface QuizProps {
   quizData: DataItem[];
   active: boolean;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  setFinishedQuiz: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
+const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQuiz }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([0]);
   const [answersWeight, setAnswersWeight] = useState([0]);
@@ -65,30 +66,16 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
 
   useEffect(() => {
     if (currentQuestion > quizData.length) {
-      // TODO: Submit all answers and calculate results
       let recommendationResult = calculateResult(
         selectedAnswers,
         answersWeight
       );
-      // setRecommendationBundle(fetchFakeTestProduct(recommendationResult));
-      // fetchProduct(recommendationResult, setRecommendationBundle);
 
-      // console.log("Start Fetching: " + recommendationResult);
-      // const product = fetchProduct(recommendationResult);
-      // console.log("Product is fetched:");
-      // console.warn(product);
-      // if (product) setRecommendationBundle(product);
-      // else console.warn("Can not Fetch Product!");
       fetchProduct(recommendationResult).then((result) =>
         setRecommendationBundle(result)
       );
     }
   }, [currentQuestion]);
-
-  useEffect(() => {
-    console.warn("The bundle changed!");
-    console.log(recommendationBundle);
-  }, [recommendationBundle]);
 
   return (
     <div className={active ? "quiz quiz-active" : "quiz"}>
@@ -165,7 +152,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
           );
         })}
         {currentQuestion > quizData.length && (
-          <QuizResult recommendationBundle={recommendationBundle} />
+          <QuizResult recommendationBundle={recommendationBundle} setFinishedQuiz={setFinishedQuiz}/>
         )}
       </QuizCard>
     </div>

@@ -6,9 +6,10 @@ const MAX_RESULT_CONTENT_HEIGHT = "20rem";
 
 interface Props {
   recommendationBundle: any;
+  setFinishedQuiz: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const QuizResult = ({ recommendationBundle }: Props) => {
+const QuizResult = ({ recommendationBundle, setFinishedQuiz }: Props) => {
   if (!recommendationBundle || !recommendationBundle.images)
     return <LoadingSpinner />;
 
@@ -35,7 +36,7 @@ const QuizResult = ({ recommendationBundle }: Props) => {
             className="quiz-btn font-bold mt-4 
                                 md:absolute md:bottom-0"
             onClick={() => {
-              bundleAddToCart(recommendationBundle.variants[0].id);
+              bundleAddToCart(recommendationBundle.variants[0].id).then(() => setFinishedQuiz(true) );
             }}
           >
             ADD TO CART
@@ -66,7 +67,11 @@ const ProductContent = ({ children }: PCProps) => {
   );
 };
 
-const ProductImg = ({ recommendationBundle }: Props) => {
+interface PIProps {
+  recommendationBundle: any;
+}
+
+const ProductImg = ({ recommendationBundle }: PIProps) => {
   const imgStyles = {
     maxHeight: MAX_RESULT_CONTENT_HEIGHT,
     background: `URL(${recommendationBundle.images[0]})`,
