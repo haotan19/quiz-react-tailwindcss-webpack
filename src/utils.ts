@@ -63,23 +63,34 @@ export const fetchFakeTestProduct = (bundle: Bundle) => ({
   ],
 });
 
-export const fetchProduct = (bundle: Bundle) => {
-  let fetchStr = "";
-  switch (bundle) {
+export const fetchProduct = async (result: Bundle) => {
+  let fetchUrl = "";
+  switch (result) {
     case Bundle.DRY:
-      fetchStr = "/products/dry-mature-skin-bundle.js";
+      fetchUrl = "/products/dry-mature-skin-bundle.js";
       break;
     case Bundle.BALANCED:
-      fetchStr = "/products/balanced-skin-bundle.js";
+      fetchUrl = "/products/balanced-skin-bundle.js";
       break;
     case Bundle.OILY:
-      fetchStr = "/products/combination-skin-bundle.js";
+      fetchUrl = "/products/combination-skin-bundle.js";
       break;
   }
-  let result;
-  fetch(fetchStr)
-    .then((response) => response.json())
-    .then((res) => (result = res))
-    .catch((err) => console.log(err));
-  return result;
+  console.log("Start:");
+  console.log("Fetching... " + fetchUrl);
+
+  // let product;
+  const response = await fetch(fetchUrl);
+  return response.json();
+  // .then((response) => response.json())
+  // .then((res) => {
+  //   console.log("Result is: ");
+  //   console.warn(res);
+  //   // setRecommendationBundle(res);
+  //   product = res;
+  //   // return product;
+  // });
+  // .catch((err) => console.log("Fetch err:" + err));
+
+  // return product;
 };

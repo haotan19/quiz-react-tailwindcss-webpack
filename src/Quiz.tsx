@@ -8,8 +8,9 @@ import QuizNavigation from "./QuizNavigation";
 import {
   DataItem,
   Answer,
-  fetchFakeTestProduct,
-  // fetchProduct,
+  // fetchFakeTestProduct,
+  fetchProduct,
+  // Bundle,
   calculateResult,
 } from "./utils";
 
@@ -48,7 +49,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([0]);
   const [answersWeight, setAnswersWeight] = useState([0]);
-  const [recommendationBundle, setRecommendationBundle] = useState({});
+  const [recommendationBundle, setRecommendationBundle] = useState<any>(null);
 
   useEffect(() => {
     const newWeights = [0]; // 0 for question 0 which doesn't exist
@@ -69,10 +70,27 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive }) => {
         selectedAnswers,
         answersWeight
       );
-      setRecommendationBundle(fetchFakeTestProduct(recommendationResult));
-      // setRecommendationBundle(fetchProduct(recommendationResult));
+      // setRecommendationBundle(fetchFakeTestProduct(recommendationResult));
+      // fetchProduct(recommendationResult, setRecommendationBundle);
+
+      // console.log("Start Fetching: " + recommendationResult);
+      // const product = fetchProduct(recommendationResult);
+      // console.log("Product is fetched:");
+      // console.warn(product);
+      // if (product) setRecommendationBundle(product);
+      // else console.warn("Can not Fetch Product!");
+      fetchProduct(recommendationResult).then((result) =>
+        setRecommendationBundle(result)
+      );
     }
   }, [currentQuestion]);
+
+  useEffect(() => {
+    console.warn("The bundle chagned!");
+    console.log(recommendationBundle);
+  }, [recommendationBundle]);
+
+  console.log("Quiz mounted");
 
   return (
     <div className={active ? "quiz quiz-active" : "quiz"}>

@@ -1,5 +1,5 @@
 import { LoadingSpinner } from "./LoadingSpinner";
-import React from "react";
+import React, { useEffect } from "react";
 
 const MAX_RESULT_CONTENT_HEIGHT = "20rem";
 
@@ -8,41 +8,40 @@ interface Props {
 }
 
 const QuizResult = ({ recommendationBundle }: Props) => {
-  if (recommendationBundle.images && recommendationBundle.images[0]) {
-    return (
-      <div className="p-4 pb-10 md:p-10 h-full flex flex-col">
-        <div className="flex relative">
-          <h3 className="w-full text-2xl text-center ">RESULT</h3>
-        </div>
-        <div className="h-full w-full flex flex-col md:flex-row justify-center items-center">
-          <ProductImg recommendationBundle={recommendationBundle} />
-          <ProductContent>
-            <div className="transform md:translate-y-8">
-              <h3 className="text-2xl font-bold">
-                {recommendationBundle.title}
-              </h3>
-              <p>
-                <span className="mr-4">$44.90</span>
-                <span className="line-through text-gray-300">$49.85</span>
-              </p>
-              <p className="max-w-prose">
-                We put a short sentence here to describe this product. We put a
-                short sentence here to describe this product.
-              </p>
-            </div>
-            <button
-              className="quiz-btn font-bold mt-4 
-                        md:absolute md:bottom-0"
-            >
-              ADD TO CART
-            </button>
-          </ProductContent>
-        </div>
-      </div>
-    );
-  } else {
+
+
+  if (!recommendationBundle || !recommendationBundle.images)
     return <LoadingSpinner />;
-  }
+
+  return (
+    <div className="p-4 pb-10 md:p-10 h-full flex flex-col">
+      <div className="flex relative">
+        <h3 className="w-full text-2xl text-center ">RESULT</h3>
+      </div>
+      <div className="h-full w-full flex flex-col md:flex-row justify-center items-center">
+        <ProductImg recommendationBundle={recommendationBundle} />
+        <ProductContent>
+          <div className="transform md:translate-y-8">
+            <h3 className="text-2xl font-bold">{recommendationBundle.title}</h3>
+            <p>
+              <span className="mr-4">$44.90</span>
+              <span className="line-through text-gray-300">$49.85</span>
+            </p>
+            <p className="max-w-prose">
+              We put a short sentence here to describe this product. We put a
+              short sentence here to describe this product.
+            </p>
+          </div>
+          <button
+            className="quiz-btn font-bold mt-4 
+                                md:absolute md:bottom-0"
+          >
+            ADD TO CART
+          </button>
+        </ProductContent>
+      </div>
+    </div>
+  );
 };
 
 export default QuizResult;
