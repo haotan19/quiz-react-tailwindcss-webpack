@@ -2,6 +2,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import Quiz from "./Quiz";
 // const Quiz = React.lazy(() => import("./Quiz"));
 import { Bundle, DataItem } from "./utils";
+import AddToCartButton from "./AddToCartButton";
 
 const q1 = new DataItem(1, "Which is your biggest skin care concern?")
   .addAnswer("A lackluster complexion in need of a polish", Bundle.BALANCED)
@@ -74,7 +75,6 @@ const QuizEntry = () => {
   }, [active]);
 
 
-
   return (
     <section className="grid justify-center gap-4 py-6">
       <h1 className="text-center text-4xl">KNOW YOUR SKIN</h1>
@@ -82,12 +82,7 @@ const QuizEntry = () => {
         Ready to find the right skincare products?
       </p>
       <CallToActionButton setActive={setActive} btnText={btnText} />
-      <button className="quiz-btn relative">
-        <span>
-        Test button
-        </span>
-
-      </button>
+      <AddToCartButton />
       <Suspense fallback={<div />}>
         <Quiz
           quizData={QUIZ_DATA}
