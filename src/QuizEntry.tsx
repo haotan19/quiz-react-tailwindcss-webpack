@@ -2,7 +2,6 @@ import React, { Suspense, useEffect, useState } from "react";
 import Quiz from "./Quiz";
 // const Quiz = React.lazy(() => import("./Quiz"));
 import { Bundle, DataItem } from "./utils";
-import AddToCartButton from "./AddToCartButton";
 
 const q1 = new DataItem(1, "Which is your biggest skin care concern?")
   .addAnswer("A lackluster complexion in need of a polish", Bundle.BALANCED)
@@ -82,7 +81,6 @@ const QuizEntry = () => {
         Ready to find the right skincare products?
       </p>
       <CallToActionButton setActive={setActive} btnText={btnText} />
-      <AddToCartButton />
       <Suspense fallback={<div />}>
         <Quiz
           quizData={QUIZ_DATA}
