@@ -14,6 +14,10 @@ const QuizResult = ({ recommendationBundle, setFinishedQuiz }: Props) => {
   if (!recommendationBundle || !recommendationBundle.images)
     return <LoadingSpinner />;
 
+    const desc = () => {
+      return {__html: recommendationBundle.description}
+    }
+
   return (
     <div className="p-4 pb-10 md:p-10 h-full flex flex-col">
       <div className="flex relative">
@@ -23,14 +27,14 @@ const QuizResult = ({ recommendationBundle, setFinishedQuiz }: Props) => {
         <ProductImg recommendationBundle={recommendationBundle} />
         <ProductContent>
           <div className="transform md:translate-y-8">
-            <h3 className="text-2xl font-bold">{recommendationBundle.title}</h3>
+            <h3 className="text-2xl font-bold tracking-wide">{recommendationBundle.title}</h3>
             <p>
               <span className="mr-4">$44.90</span>
               <span className="line-through text-gray-300">$49.85</span>
             </p>
-            <p className="max-w-prose">
-              We put a short sentence here to describe this product. We put a
-              short sentence here to describe this product.
+            <p className="max-w-prose" dangerouslySetInnerHTML={desc()}>
+              {/* We put a short sentence here to describe this product. We put a
+              short sentence here to describe this product. */}             
             </p>
           </div>
           <button
