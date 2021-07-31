@@ -14,7 +14,11 @@ const QuizResult = ({ recommendationBundle, setFinishedQuiz }: Props) => {
   const [btnState, setBtnState] = useState(0); // 0 default, 1 Adding, 2 SUCCESS, 3 CHECK OUT
 
   if (!recommendationBundle || !recommendationBundle.images)
-    return <LoadingSpinner />;
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
 
   const desc = () => {
     return { __html: recommendationBundle.description };
