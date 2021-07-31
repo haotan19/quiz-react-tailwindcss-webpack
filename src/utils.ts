@@ -50,7 +50,6 @@ export const calculateResult = (
     case 2:
       return Bundle.OILY;
   }
-  console.error("Quiz calculation failed, fall back to default");
   return Bundle.BALANCED;
 };
 
@@ -89,7 +88,6 @@ export const bundleAddToCart = async (productId: number) => {
       },
     ],
   };
-  console.log("Adding productId: " + productId);
   fetch("/cart/add.js", {
     method: "POST",
     headers: {
