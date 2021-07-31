@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { a, useTrail } from "react-spring";
+import { a, animated, useSpring, useTrail } from "react-spring";
 import BackgroundOverlay from "./BackgroundOverlay";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
@@ -19,6 +19,7 @@ interface TrailProps {
   className: string;
 }
 
+// Quiz answers trail animation:
 const Trail: React.FC<TrailProps> = ({ open, className, children }) => {
   const items = React.Children.toArray(children);
   const trail = useTrail(items.length, {
@@ -52,6 +53,12 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQui
   const [answersWeight, setAnswersWeight] = useState([0]);
   const [recommendationBundle, setRecommendationBundle] = useState<any>(null);
 
+  useSpring({
+    reset: true,
+    reverse: active,
+    
+  })
+
   useEffect(() => {
     const newWeights = [0]; // 0 for question 0 which doesn't exist
     quizData.map((item) => newWeights.push(item.answerWeight));
@@ -78,7 +85,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQui
   }, [currentQuestion]);
 
   return (
-    <div className={active ? "quiz quiz-active" : "quiz"}>
+    <animated.div className={active ? "quiz quiz-active" : "quiz"}>
       <BackgroundOverlay onClick={() => setActive(false)} />
       <QuizCard>
         {quizData.map((questionData) => {
@@ -155,7 +162,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQui
           <QuizResult recommendationBundle={recommendationBundle} setFinishedQuiz={setFinishedQuiz}/>
         )}
       </QuizCard>
-    </div>
+    </animated.div>
   );
 };
 

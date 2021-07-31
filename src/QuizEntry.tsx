@@ -3,7 +3,6 @@ import Quiz from "./Quiz";
 // const Quiz = React.lazy(() => import("./Quiz"));
 import { Bundle, DataItem } from "./utils";
 
-
 const q1 = new DataItem(1, "Which is your biggest skin care concern?")
   .addAnswer("A lackluster complexion in need of a polish", Bundle.BALANCED)
   .addAnswer("Those crow's feet are creeping in!", Bundle.DRY)
@@ -49,8 +48,8 @@ window.addEventListener("scroll", () => {
 
 const QuizEntry = () => {
   const [active, setActive] = useState(false);
-  const [btnText, setBtnText] = useState("Start the quiz");
-  const [finishedQuiz, setFinishedQuiz] = useState(false)
+  const [btnText, setBtnText] = useState("START QUIZ");
+  const [finishedQuiz, setFinishedQuiz] = useState(false);
 
   useEffect(() => {
     const body = document.body;
@@ -67,12 +66,14 @@ const QuizEntry = () => {
       window.scrollTo(0, parseInt(scrollY || "0") * -1);
     }
 
-    if(finishedQuiz){
-      setBtnText("Show my result")
-    } else if(active) {
-      setBtnText("Resume quiz")
+    if (finishedQuiz) {
+      setBtnText("SHOW MY RESULT");
+    } else if (active) {
+      setBtnText("RESUME QUIZ");
     }
   }, [active]);
+
+
 
   return (
     <section className="grid justify-center gap-4 py-6">
@@ -81,8 +82,19 @@ const QuizEntry = () => {
         Ready to find the right skincare products?
       </p>
       <CallToActionButton setActive={setActive} btnText={btnText} />
+      <button className="quiz-btn relative">
+        <span>
+        Test button
+        </span>
+
+      </button>
       <Suspense fallback={<div />}>
-        <Quiz quizData={QUIZ_DATA} active={active} setActive={setActive} setFinishedQuiz={setFinishedQuiz}/>
+        <Quiz
+          quizData={QUIZ_DATA}
+          active={active}
+          setActive={setActive}
+          setFinishedQuiz={setFinishedQuiz}
+        />
       </Suspense>
     </section>
   );

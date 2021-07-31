@@ -1,4 +1,5 @@
 import React from "react";
+import { GoCheck } from "react-icons/go";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { bundleAddToCart } from "./utils";
 
@@ -36,10 +37,13 @@ const QuizResult = ({ recommendationBundle, setFinishedQuiz }: Props) => {
             className="quiz-btn font-bold mt-4 
                                 md:absolute md:bottom-0"
             onClick={() => {
-              bundleAddToCart(recommendationBundle.variants[0].id).then(() => setFinishedQuiz(true) );
+              bundleAddToCart(recommendationBundle.variants[0].id).then(() => {
+                setFinishedQuiz(true);
+              });
             }}
           >
             ADD TO CART
+            <GoCheck />
           </button>
         </ProductContent>
       </div>
