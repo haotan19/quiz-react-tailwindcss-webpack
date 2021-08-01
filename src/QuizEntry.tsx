@@ -75,7 +75,7 @@ const QuizEntry = () => {
 
 
   return (
-    <section className="grid justify-center gap-4 py-6">
+    <section className="grid justify-center gap-4 py-24">
       <h1 className="text-center text-4xl">KNOW YOUR SKIN</h1>
       <p className="text-center text-lg">
         Ready to find the right skincare products?

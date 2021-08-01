@@ -32,7 +32,7 @@ const QuizResult = ({ recommendationBundle, setFinishedQuiz }: Props) => {
       <div className="h-full w-full flex flex-col md:flex-row justify-center items-center">
         <ProductImg recommendationBundle={recommendationBundle} />
         <ProductContent>
-          <div className="transform md:translate-y-8">
+          <div className="transform md:-translate-y-2">
             <h3 className="text-2xl font-bold tracking-wide">
               {recommendationBundle.title}
             </h3>
