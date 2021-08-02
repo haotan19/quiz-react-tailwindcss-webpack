@@ -150,6 +150,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQui
                 setCurrentQuestion={setCurrentQuestion}
                 length={quizData.length}
                 additionalPaddingRight={additionalPaddingRight}
+                selectedAnswers={selectedAnswers}
               ></QuizNavigation>
             </div>
           );

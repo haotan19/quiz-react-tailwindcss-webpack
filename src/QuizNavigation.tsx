@@ -6,6 +6,7 @@ interface Props {
   setCurrentQuestion: React.Dispatch<React.SetStateAction<number>>;
   additionalPaddingRight: string;
   length: number;
+  selectedAnswers: number[];
 }
 
 const QuizNavigation: React.FC<Props> = ({
@@ -13,27 +14,33 @@ const QuizNavigation: React.FC<Props> = ({
   setCurrentQuestion,
   additionalPaddingRight,
   length,
+  selectedAnswers,
 }) => {
   return (
     <div
       className={
-        "self-end w-full flex justify-end gap-2  bottom-8 sm:bottom-14 md:bottom-20 right-6 md:right-0 " +
+        "self-end w-full flex justify-end gap-2 bottom-8 sm:bottom-14 md:bottom-20 right-6 md:right-0 " +
         additionalPaddingRight
       }
     >
       <button
-        disabled={!currentQuestion}
+        disabled={currentQuestion === 1}
         onClick={() => {
           if (currentQuestion > 1) setCurrentQuestion((s) => s - 1);
         }}
+        className="quiz-nav-btn"
       >
         <BiLeftArrow className="w-6 h-6" />
       </button>
       <button
-        //TODO: Disabled if question is not answered.
+        disabled={
+          selectedAnswers[currentQuestion] < 0 ||
+          selectedAnswers[currentQuestion] == undefined
+        }
         onClick={() => {
           if (currentQuestion < length) setCurrentQuestion((s) => s + 1);
         }}
+        className="quiz-nav-btn"
       >
         <BiRightArrow className="w-6 h-6" />
       </button>
