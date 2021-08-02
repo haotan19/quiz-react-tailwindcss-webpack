@@ -1063,6 +1063,14 @@ video {
   width: 100%;
 }
 
+.quiz-nav-btn:hover {
+  background-color: transparent;
+}
+
+.quiz-nav-btn:disabled svg {
+  fill: rgba(156, 163, 175, 1);
+}
+
 .white-overlay {
   position: sticky;
   bottom: 0;
