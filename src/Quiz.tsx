@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { a, animated, useSpring, useTrail } from "react-spring";
-import BackgroundOverlay from "./BackgroundOverlay";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
 // import QuizDataItem from "./QuizDataItem";
 import QuizResult from "./QuizResult";
 import {
   Answer,
-  // Bundle,
   calculateResult,
   DataItem,
-  // fetchFakeTestProduct,
   fetchProduct,
 } from "./utils";
 
@@ -86,8 +83,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQui
 
   return (
     <animated.div className={active ? "quiz quiz-active" : "quiz"}>
-      <BackgroundOverlay onClick={() => setActive(false)} />
-      <QuizCard>
+       <QuizCard>
         {quizData.map((questionData) => {
           let wrapperClassName =
             "w-full h-full absolute top-0 left-1/2 transform -translate-x-1/2 max-w-prose px-6 py-10 md:px-0 flex flex-col";

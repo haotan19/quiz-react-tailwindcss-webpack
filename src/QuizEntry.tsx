@@ -2,6 +2,8 @@ import React, { Suspense, useEffect, useState } from "react";
 import Quiz from "./Quiz";
 // const Quiz = React.lazy(() => import("./Quiz"));
 import { Bundle, DataItem } from "./utils";
+import BackgroundOverlay from "./BackgroundOverlay";
+
 
 const q1 = new DataItem(1, "Which is your biggest skin care concern?")
   .addAnswer("A lackluster complexion in need of a polish", Bundle.BALANCED)
@@ -82,6 +84,7 @@ const QuizEntry = () => {
       </p>
       <CallToActionButton setActive={setActive} btnText={btnText} />
       <Suspense fallback={<div />}>
+      <BackgroundOverlay onClick={() => setActive(false)} active={active}/>
         <Quiz
           quizData={QUIZ_DATA}
           active={active}
