@@ -76,21 +76,32 @@ export const fetchProduct = async (result: Bundle) => {
       fetchUrl = "/products/combination-skin-bundle.js";
       break;
   }
-  console.log("Start:");
-  console.log("Fetching... " + fetchUrl);
 
-  // let product;
   const response = await fetch(fetchUrl);
   return response.json();
-  // .then((response) => response.json())
-  // .then((res) => {
-  //   console.log("Result is: ");
-  //   console.warn(res);
-  //   // setRecommendationBundle(res);
-  //   product = res;
-  //   // return product;
-  // });
-  // .catch((err) => console.log("Fetch err:" + err));
+};
 
-  // return product;
+export const bundleAddToCart = async (productId: number) => {
+  let formData = {
+    items: [
+      {
+        id: productId,
+        quantity: 1,
+      },
+    ],
+  };
+
+  fetch("/cart/add.js", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Add to cart error:", error);
+    });
 };

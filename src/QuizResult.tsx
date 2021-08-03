@@ -1,5 +1,6 @@
+import React from "react";
 import { LoadingSpinner } from "./LoadingSpinner";
-import React, { useEffect } from "react";
+import { bundleAddToCart } from "./utils";
 
 const MAX_RESULT_CONTENT_HEIGHT = "20rem";
 
@@ -8,8 +9,6 @@ interface Props {
 }
 
 const QuizResult = ({ recommendationBundle }: Props) => {
-
-
   if (!recommendationBundle || !recommendationBundle.images)
     return <LoadingSpinner />;
 
@@ -35,6 +34,9 @@ const QuizResult = ({ recommendationBundle }: Props) => {
           <button
             className="quiz-btn font-bold mt-4 
                                 md:absolute md:bottom-0"
+            onClick={() => {
+              bundleAddToCart(recommendationBundle.id);
+            }}
           >
             ADD TO CART
           </button>
