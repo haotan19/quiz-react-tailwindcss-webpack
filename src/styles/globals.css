@@ -37,11 +37,20 @@
 }
 
 .quiz-btn {
-  @apply border border-black rounded w-full py-3 px-6 bg-white text-black hover:bg-black hover:text-white;
+  @apply border border-black rounded w-full py-3 px-6 bg-white text-black hover:bg-black hover:text-white transition;
+}
+
+.quiz-btn:hover {
+  @apply border-transparent;
+}
+
+.quiz-btn:hover path {
+  @apply transition;
+  fill: white;
 }
 
 .quiz-btn__cta {
-  @apply flex justify-center items-center;
+  @apply flex justify-center items-center gap-2 border-0;
   background-color: #ffc8c8;
 }
 
