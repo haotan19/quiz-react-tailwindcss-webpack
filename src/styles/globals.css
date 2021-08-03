@@ -5,6 +5,10 @@
 
 /* Remember to add .quiz on the dist/main.css in front of all the star* with all the box-sizing */
 
+.quiz-section {
+  background: linear-gradient(138.69deg, #ffd2bb 10.1%, #fcf5e5 80.17%);
+}
+
 .quiz {
   @apply font-Hel invisible z-50 transition-transform transform translate-y-full duration-300 pointer-events-none;
   height: 100vh;
@@ -34,6 +38,11 @@
 
 .quiz-btn {
   @apply border border-black rounded w-full py-3 px-6 bg-white text-black hover:bg-black hover:text-white;
+}
+
+.quiz-btn__cta {
+  @apply flex justify-center items-center;
+  background-color: #ffc8c8;
 }
 
 .quiz-btn .quiz-btn--full-length {

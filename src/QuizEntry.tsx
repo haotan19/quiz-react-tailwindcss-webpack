@@ -3,7 +3,7 @@ import Quiz from "./Quiz";
 // const Quiz = React.lazy(() => import("./Quiz"));
 import { Bundle, DataItem } from "./utils";
 import BackgroundOverlay from "./BackgroundOverlay";
-
+import QuizIcon from "./QuizIcon";
 
 const q1 = new DataItem(1, "Which is your biggest skin care concern?")
   .addAnswer("A lackluster complexion in need of a polish", Bundle.BALANCED)
@@ -75,16 +75,16 @@ const QuizEntry = () => {
     }
   }, [active]);
 
-
   return (
-    <section className="grid justify-center gap-4 py-24">
-      <h1 className="text-center text-4xl">KNOW YOUR SKIN</h1>
-      <p className="text-center text-lg">
-        Ready to find the right skincare products?
+    <section className="quiz-section grid justify-center gap-4 py-24">
+      <h1 className="text-center text-3xl md:text-4xl">KNOW YOUR SKIN</h1>
+      <p className="text-center text-lg text-gray-600">
+        Ready to find the right skincare products? <br />
+        Take a <span className="font-bold">1-min</span> quiz to find out!
       </p>
       <CallToActionButton setActive={setActive} btnText={btnText} />
       <Suspense fallback={<div />}>
-      <BackgroundOverlay onClick={() => setActive(false)} active={active}/>
+        <BackgroundOverlay onClick={() => setActive(false)} active={active} />
         <Quiz
           quizData={QUIZ_DATA}
           active={active}
@@ -104,11 +104,12 @@ interface BtnProps {
 const CallToActionButton: React.FC<BtnProps> = ({ setActive, btnText }) => {
   return (
     <button
-      className="quiz-btn max-w-sm"
+      className="quiz-btn quiz-btn__cta max-w-sm shadow"
       onClick={() => {
         setActive(true);
       }}
     >
+      <QuizIcon/>
       {btnText}
     </button>
   );
