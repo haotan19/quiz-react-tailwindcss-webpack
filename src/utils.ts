@@ -4,6 +4,19 @@ export enum Bundle {
   OILY = 2,
 }
 
+export const bundleToText = (bundle: Bundle) => {
+  switch (bundle) {
+    case Bundle.DRY:
+      return "dry-mature-skin-bundle";
+    case Bundle.BALANCED:
+      return "balanced-skin-bundle";
+    case Bundle.OILY:
+      return "combination-skin-bundle";
+    default:
+      return "";
+  }
+};
+
 export interface Answer {
   text: string;
   bundle: Bundle;

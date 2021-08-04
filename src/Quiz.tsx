@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { a, animated, useSpring, useTrail } from "react-spring";
+import { submitAnswers } from "./klaviyo";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
 // import QuizDataItem from "./QuizDataItem";
 import QuizResult from "./QuizResult";
 import {
   Answer,
+  bundleToText,
   calculateResult,
   DataItem,
   fetchProduct,
@@ -44,7 +46,12 @@ interface QuizProps {
   setFinishedQuiz: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQuiz }) => {
+const Quiz: React.FC<QuizProps> = ({
+  quizData,
+  active,
+  setActive,
+  setFinishedQuiz,
+}) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([0]);
   const [answersWeight, setAnswersWeight] = useState([0]);
@@ -53,8 +60,7 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQui
   useSpring({
     reset: true,
     reverse: active,
-    
-  })
+  });
 
   useEffect(() => {
     const newWeights = [0]; // 0 for question 0 which doesn't exist
@@ -78,12 +84,21 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQui
       fetchProduct(recommendationResult).then((result) =>
         setRecommendationBundle(result)
       );
+
+      const submitData: string[][] = [];
+      quizData.map((q, index) => {
+        if (index > 0)
+          submitData.push([q.question, q.answers[selectedAnswers[index]].text]);
+      });
+
+      submitData.push(["Recommend", bundleToText(recommendationResult)]);
+      submitAnswers(submitData);
     }
   }, [currentQuestion]);
 
   return (
     <animated.div className={active ? "quiz quiz-active" : "quiz"}>
-       <QuizCard>
+      <QuizCard>
         {quizData.map((questionData) => {
           let wrapperClassName =
             "w-full h-full absolute top-0 left-1/2 transform -translate-x-1/2 max-w-prose px-6 py-10 md:px-0 flex flex-col";
@@ -156,7 +171,10 @@ const Quiz: React.FC<QuizProps> = ({ quizData, active, setActive, setFinishedQui
           );
         })}
         {currentQuestion > quizData.length && (
-          <QuizResult recommendationBundle={recommendationBundle} setFinishedQuiz={setFinishedQuiz}/>
+          <QuizResult
+            recommendationBundle={recommendationBundle}
+            setFinishedQuiz={setFinishedQuiz}
+          />
         )}
       </QuizCard>
     </animated.div>
