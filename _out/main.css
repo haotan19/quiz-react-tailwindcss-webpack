@@ -892,9 +892,9 @@ video {
   line-height: 2rem;
 }
 
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
 }
 
 .font-bold {
@@ -923,6 +923,11 @@ video {
   color: rgba(209, 213, 219, var(--tw-text-opacity));
 }
 
+.text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgba(75, 85, 99, var(--tw-text-opacity));
+}
+
 .line-through {
   text-decoration: line-through;
 }
@@ -939,6 +944,13 @@ video {
 ::before,
 ::after {
   --tw-shadow: 0 0 rgba(0, 0, 0, 0);
+}
+
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 0 rgba(0, 0, 0, 0), 0 0 rgba(0, 0, 0, 0), var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 rgba(0, 0, 0, 0)),
+    var(--tw-ring-shadow, 0 0 rgba(0, 0, 0, 0)), var(--tw-shadow);
 }
 
 .shadow-xl {
@@ -982,6 +994,10 @@ video {
 
 /* Remember to add .quiz on the dist/main.css in front of all the star* with all the box-sizing */
 
+.quiz-section {
+  background: linear-gradient(138.69deg, #ffd2bb 10.1%, #fcf5e5 80.17%);
+}
+
 .quiz {
   pointer-events: none;
   visibility: hidden;
@@ -1007,6 +1023,14 @@ video {
   position: fixed;
   top: 0;
   left: 0;
+}
+
+.quiz ul {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.quiz ul::-webkit-scrollbar {
+  display: none;
 }
 
 .quiz.quiz-active {
@@ -1041,8 +1065,17 @@ video {
 }
 
 .quiz-btn:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  --tw-border-opacity: 0;
+  /*   color: rgba(255, 255, 255, var(--tw-text-opacity)); */
+}
+
+.quiz-btn path {
+  transition-duration: 150ms;
+}
+
+.quiz-btn:hover path {
+  fill: white;
 }
 
 .quiz-btn {
@@ -1057,6 +1090,45 @@ video {
 .quiz-btn:hover {
   --tw-text-opacity: 1;
   color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.quiz-btn {
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter,
+    -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.quiz-btn:hover {
+  border-color: transparent;
+}
+
+.quiz-btn:hover path {
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter,
+    -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  fill: white;
+}
+
+.quiz-btn__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 0.5rem;
+  gap: 0.5rem;
+  border-width: 0px;
+  background-color: #ffc8c8;
 }
 
 .quiz-btn .quiz-btn--full-length {
@@ -1187,6 +1259,11 @@ video {
   .md\:py-24 {
     padding-top: 6rem;
     padding-bottom: 6rem;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 }
 
