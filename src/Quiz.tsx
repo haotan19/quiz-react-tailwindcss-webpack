@@ -81,9 +81,9 @@ const Quiz: React.FC<QuizProps> = ({
         answersWeight
       );
 
-      fetchProduct(recommendationResult).then((result) =>
-        setRecommendationBundle(result)
-      );
+      fetchProduct(recommendationResult)
+        .then((result) => setRecommendationBundle(result))
+        .catch((err) => console.error(err));
 
       const submitData: string[][] = [];
       quizData.map((q, index) => {
