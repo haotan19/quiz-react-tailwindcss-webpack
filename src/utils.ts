@@ -115,3 +115,10 @@ export const bundleAddToCart = async (productId: number) => {
       console.error("Error:", error);
     });
 };
+
+export function isOverflown(element: Element) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+}

@@ -6,13 +6,17 @@ import BackgroundOverlay from "./BackgroundOverlay";
 import QuizIcon from "./QuizIcon";
 
 const q1 = new DataItem(1, "Which is your biggest skin care concern?")
-  .addAnswer("A lackluster complexion in need of a polish", Bundle.BALANCED)
+  .addAnswer(
+    "Maintaining a healthy, balanced complexion  and proactively protecting my skin against future damage.",
+    Bundle.BALANCED
+  )
   .addAnswer("Those crow's feet are creeping in!", Bundle.DRY)
-  .addAnswer("You want that glow, but you just feel greasy", Bundle.OILY);
+  .addAnswer("I'm breaking out : / Help!", Bundle.OILY);
 const q2 = new DataItem(2, "Which skin type is most like yours?", 3)
   .addAnswer("On the dry side", Bundle.DRY)
   .addAnswer("Even and balanced", Bundle.BALANCED)
-  .addAnswer("Oily and shiny", Bundle.OILY); // Typo in the chart?
+  .addAnswer("Oily and shiny", Bundle.OILY) // Typo in the chart?
+  .addAnswer("Struggling with acne . . . help!", Bundle.OILY);
 const q3 = new DataItem(3, "How often do you experience breakouts?") // Typo in the chart?
   .addAnswer("Never", Bundle.DRY)
   .addAnswer("Rarely", Bundle.BALANCED)
@@ -109,7 +113,7 @@ const CallToActionButton: React.FC<BtnProps> = ({ setActive, btnText }) => {
         setActive(true);
       }}
     >
-      <QuizIcon/>
+      <QuizIcon />
       {btnText}
     </button>
   );

@@ -11,6 +11,7 @@ import {
   calculateResult,
   DataItem,
   fetchProduct,
+  // isOverflown,
 } from "./utils";
 
 interface TrailProps {
@@ -111,6 +112,8 @@ const Quiz: React.FC<QuizProps> = ({
 
           let trailAnimation = false;
 
+          const answersContainerId = "quiz-ul-" + questionData.id;
+
           const tooManyCharacters = (text: string) => text.length > 15;
           if (
             questionData.answers.some((_answer) =>
@@ -142,7 +145,10 @@ const Quiz: React.FC<QuizProps> = ({
               <h2 className="text-2xl sm:text-3xl normal-case tracking-normal">
                 {questionData.question}
               </h2>
-              <ul className="flex-1 overflow-y-auto relative">
+              <ul
+                id={answersContainerId}
+                className="flex-1 overflow-y-auto relative"
+              >
                 <Trail open={trailAnimation} className={gridClassName}>
                   {questionData.answers.map((answer, index) => (
                     <li
@@ -158,7 +164,7 @@ const Quiz: React.FC<QuizProps> = ({
                     </li>
                   ))}
                 </Trail>
-                <div className="white-overlay pointer-events-none"></div>
+                {/* <WhiteOverlay answersContainerId={answersContainerId} /> */}
               </ul>
               <QuizNavigation
                 currentQuestion={currentQuestion}
@@ -180,5 +186,19 @@ const Quiz: React.FC<QuizProps> = ({
     </animated.div>
   );
 };
+
+// Removed White Overlay
+// const WhiteOverlay = ({
+//   answersContainerId,
+// }: {
+//   answersContainerId: string;
+// }) => {
+//   const answerContainer = document.querySelector("#" + answersContainerId);
+//   if (answerContainer)
+//     if (isOverflown(answerContainer))
+//       return <div className="white-overlay pointer-events-none"></div>;
+// else
+//   return <></>;
+// };
 
 export default Quiz;
