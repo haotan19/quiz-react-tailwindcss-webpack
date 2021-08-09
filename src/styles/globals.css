@@ -37,7 +37,7 @@
 }
 
 .quiz-btn {
-  @apply border border-black w-full py-3 px-6 bg-white text-black hover:bg-black hover:text-white transition;
+  @apply border border-gray-300 w-full py-3 px-6 bg-white text-black hover:bg-black hover:text-white hover:border-gray-900 transition;
 }
 
 .quiz-btn:hover {
