@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { a, animated, useSpring, useTrail } from "react-spring";
+import SpecialOffer from "./SpecialOffer";
 import { submitAnswers } from "./klaviyo";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
@@ -182,6 +183,7 @@ const Quiz: React.FC<QuizProps> = ({
             setFinishedQuiz={setFinishedQuiz}
           />
         )}
+        <SpecialOffer />
       </QuizCard>
     </animated.div>
   );
