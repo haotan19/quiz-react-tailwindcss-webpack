@@ -14,7 +14,7 @@
 }
 
 .quiz {
-  @apply invisible font-Hel z-50 transition-transform transform translate-y-full duration-300 pointer-events-none;
+  @apply font-Hel z-50 transition-transform transform translate-y-full duration-300 pointer-events-none;
   height: 100vh;
   width: 100vw;
   position: fixed;
@@ -33,7 +33,7 @@
 .background-overlay {
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1;

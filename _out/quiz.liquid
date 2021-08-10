@@ -17,6 +17,7 @@
 
 <div id="quiz-root"></div>
 
+{% if customer.email == blank %}
 <div class="quiz-newsletter" id="quiz-newsletter" >
   <div class="quiz-card-max-h pointer-events-auto
     bg-white md:rounded-md overflow-hidden shadow-xl w-full  md:max-w-3xl lg:max-w-4xl mx-auto px-4
@@ -94,6 +95,7 @@
      </div>
   </div>
 </div>
+{% endif %}
 
 <script src="{{ "bundle.js" | asset_url }}" async defer></script>
 

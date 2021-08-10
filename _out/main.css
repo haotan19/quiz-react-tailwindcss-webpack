@@ -1114,7 +1114,7 @@ video {
 
 .quiz {
   pointer-events: none;
-  visibility: hidden;
+  /*   visibility: hidden; */
   z-index: 50;
   --tw-translate-x: 0;
   --tw-translate-y: 0;
@@ -1151,7 +1151,7 @@ video {
 .background-overlay {
   height: 100vh;
   width: 100vw;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 1;
@@ -1171,7 +1171,7 @@ video {
 
 .quiz-newsletter__input-wrapper {
   position: relative;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
 }
