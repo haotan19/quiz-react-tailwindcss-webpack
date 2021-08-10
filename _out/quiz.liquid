@@ -47,13 +47,37 @@
           <h4 class="text-2xl text-center">
             {{ section.settings.headline }}
           </h4>
+            
+          <input type="hidden" name="contact[tags]" value="newsletter">
           
           <div class="quiz-newsletter__input-wrapper">
             <input
               class="quiz-newsletter__input text-center"
               placeholder="Your Beautiful Email"
+              type="email"               
+              name="contact[email]"
+              required
+              value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
+              style=" background-color: transparent;
+                      border: none;
+                      border-bottom: 1px solid #ccc;
+                      color: #555;
+                      box-sizing: border-box;
+                      font-family: "Arvo";
+                      font-size: 18px;
+                      height: 50px;
+                      left: 50%;
+                      margin: -25px 0 0 -100px;
+                      padding: 10px 0px;
+                      position: relative;
+                      top: 50%;
+                      width: 200px;
+                      margin-bottom: 0px !important; font-size: 16px;"
             />
+            {% comment %}
             <span class="quiz-newsletter__input-underline mb-2 "></span>
+			{% endcomment %}
+
 
 
         {% if form.errors %}
@@ -97,7 +121,7 @@
 </div>
 {% endif %}
 
-<script src="{{ "bundle.js" | asset_url }}" async defer></script>
+<script src="{{ "bundle.js" | asset_url }}" ></script>
 
 
 {% schema %}

@@ -52,7 +52,10 @@
 
 .quiz-newsletter__input-wrapper {
   position: relative;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 312px;
 }
 
 .quiz-newsletter__input {
