@@ -15,111 +15,18 @@
   
 </style>
 
+<style>
+  .quiz-so__image {
+    margin: 0 -1rem;
+    height: 50%;
+    background: url('{{ section.settings.image | img_url: '720x' }}'); 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover
+  }
+</style>
+
 <div id="quiz-root"></div>
-
-{% if customer.email == blank %}
-<div class="quiz-newsletter" id="quiz-newsletter" >
-  <div class="quiz-card-max-h pointer-events-auto
-    bg-white md:rounded-md overflow-hidden shadow-xl w-full  md:max-w-3xl lg:max-w-4xl mx-auto px-4
-    absolute bottom-0 md:top-1/2 left-1/2 transform -translate-x-1/2 md:-translate-y-1/2">
-  	<div class="w-full h-full bg-white relative z-10">
-
-     	<div class="quiz-newsletter__image" 
-             style="margin: 0 -1rem;
-                    height: 50%;
-                    background: url('{{ section.settings.image | img_url: '720x' }}'); 
-                    background-position: center;
-					background-repeat: no-repeat;
-					background-size: cover;">
-      	</div>
-
-        {% form 'customer', class: 'w-full h-full' %}
-        <div class="w-full flex justify-center transform -translate-y-1/2">
-  
-          <div class="inline-block border text-xl px-7 py-2 bg-white text-center">
-            SPECIAL OFFER
-          </div>
-        </div>
-        <div class="flex flex-col justify-center items-center h-2/5">
-          <p class="text-xl text-center">
-          	{{ section.settings.headline_small }}
-          </p>
-          <h4 class="text-2xl text-center">
-            {{ section.settings.headline }}
-          </h4>
-            
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          
-          <div class="quiz-newsletter__input-wrapper">
-            <input
-              class="quiz-newsletter__input text-center"
-              placeholder="Your Beautiful Email"
-              type="email"               
-              name="contact[email]"
-              required
-              value="{% if customer.email != blank %}{{ customer.email }}{% endif %}"
-              style=" background-color: transparent;
-                      border: none;
-                      border-bottom: 1px solid #ccc;
-                      color: #555;
-                      box-sizing: border-box;
-                      font-family: "Arvo";
-                      font-size: 18px;
-                      height: 50px;
-                      left: 50%;
-                      margin: -25px 0 0 -100px;
-                      padding: 10px 0px;
-                      position: relative;
-                      top: 50%;
-                      width: 200px;
-                      margin-bottom: 0px !important; font-size: 16px;"
-            />
-            {% comment %}
-            <span class="quiz-newsletter__input-underline mb-2 "></span>
-			{% endcomment %}
-
-
-
-        {% if form.errors %}
-          {% capture error_text %}
-            {{ form.errors | default_errors }}
-          {% endcapture%}
-  
-          {% render 'layout-message',
-            type: 'error'
-            text: error_text
-            class: 'mb-8'
-          %}
-        {% endif %}
-          </div>
-          
-            {% if form.posted_successfully? %}
-              Success
-            {% endif %}
-          
-          <button
-            class="inline-block bg-black text-white uppercase py-2 px-14 
-          		   hover:text-black hover:bg-white border-2 border-opacity-0 
-                   hover:border-opacity-100 transition-all"
-            style="width: 'fit-content';"
-          >
-            subscribe
-          </button>
-        </div>
-        {% endform %}
-
-        <button
-          class="p-2 bg-white absolute top-4 right-0"
-          id="quiz-newsletter__close-btn"
-        >
-          <svg stroke="black" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.2253 4.81108C5.83477 4.42056 5.20161 4.42056 4.81108 4.81108C4.42056 5.20161 4.42056 5.83477 4.81108 6.2253L10.5858 12L4.81114 17.7747C4.42062 18.1652 4.42062 18.7984 4.81114 19.1889C5.20167 19.5794 5.83483 19.5794 6.22535 19.1889L12 13.4142L17.7747 19.1889C18.1652 19.5794 18.7984 19.5794 19.1889 19.1889C19.5794 18.7984 19.5794 18.1652 19.1889 17.7747L13.4142 12L19.189 6.2253C19.5795 5.83477 19.5795 5.20161 19.189 4.81108C18.7985 4.42056 18.1653 4.42056 17.7748 4.81108L12 10.5858L6.2253 4.81108Z" fill="currentColor"></path>
-          </svg>
-        </button>
-     </div>
-  </div>
-</div>
-{% endif %}
 
 <script src="{{ "bundle.js" | asset_url }}" ></script>
 

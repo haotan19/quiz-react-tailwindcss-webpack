@@ -42,7 +42,7 @@
 
 .quiz-newsletter {
   @apply z-50;
-  visibility: var(--quiz-newsletter-visibility);
+  /* visibility: var(--quiz-newsletter-visibility); */
   height: 100vh;
   width: 100vw;
   position: fixed;
@@ -64,15 +64,10 @@
   border-bottom: 1px solid #ccc;
   color: #555;
   box-sizing: border-box;
-  font-family: "Arvo";
   font-size: 18px;
   height: 50px;
-  left: 50%;
-  margin: -25px 0 0 -100px;
   padding: 10px 0px;
-  position: relative;
-  top: 50%;
-  width: 200px;
+  width: 312px;
 }
 
 .quiz-newsletter__input:focus {
@@ -95,17 +90,11 @@
   background-color: dodgerblue;
   display: inline-block;
   height: 2px;
-  left: 50px;
-  margin-top: -4px;
-  position: absolute;
-  top: 185px;
-  -webkit-transform: scale(0, 1);
-  transform: scale(0, 1);
+  transform: scale(0, 1) translateY(-2px);
   transform-origin: left;
   -webkit-transform-origin: left;
-  -webkit-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-  width: 202px;
+  width: 312px;
 }
 
 .quiz-btn {

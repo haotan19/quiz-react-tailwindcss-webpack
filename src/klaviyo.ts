@@ -33,3 +33,9 @@ export const submitAddToCart = (productData: any) => {
     console.error(err);
   }
 };
+
+export const identify = (email: string) => {
+  _learnq.push(['identify', {
+    '$email': email
+  }]);
+}

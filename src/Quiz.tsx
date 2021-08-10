@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { a, animated, useSpring, useTrail } from "react-spring";
-// import SpecialOffer from "./SpecialOffer";
+import SpecialOffer from "./SpecialOffer";
 import { submitAnswers } from "./klaviyo";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
@@ -59,6 +59,8 @@ const Quiz: React.FC<QuizProps> = ({
   const [selectedAnswers, setSelectedAnswers] = useState([0]);
   const [answersWeight, setAnswersWeight] = useState([0]);
   const [recommendationBundle, setRecommendationBundle] = useState<any>(null);
+  const [SOActive, setSOActive] = useState(true);
+
 
   useSpring({
     reset: true,
@@ -103,7 +105,8 @@ const Quiz: React.FC<QuizProps> = ({
   return (
     <animated.div className={active ? "quiz quiz-active" : "quiz"}>
       <QuizCard>
-        {quizData.map((questionData) => {
+      <SpecialOffer SOActive={SOActive} setSOActive={setSOActive} />
+        {!SOActive && quizData.map((questionData) => {
           let wrapperClassName =
             "w-full h-full absolute top-0 left-1/2 transform -translate-x-1/2 max-w-prose px-6 py-10 md:px-0 flex flex-col";
           wrapperClassName += " py-8 sm:py-16 md:py-24 overflow-hidden";
@@ -185,7 +188,6 @@ const Quiz: React.FC<QuizProps> = ({
             setFinishedQuiz={setFinishedQuiz}
           />
         )}
-        {/* <SpecialOffer /> */}
       </QuizCard>
     </animated.div>
   );
