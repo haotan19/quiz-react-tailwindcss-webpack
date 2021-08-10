@@ -123,6 +123,7 @@ export function isOverflown(element: Element) {
   );
 }
 
+// TODO: Refactor this method name:
 export function setVisibility(visibility: boolean) {
   let set;
   if (visibility) set = "visible";
