@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { a, animated, useSpring, useTrail } from "react-spring";
-import SpecialOffer from "./SpecialOffer";
+// import SpecialOffer from "./SpecialOffer";
 import { submitAnswers } from "./klaviyo";
 import QuizCard from "./QuizCard";
 import QuizNavigation from "./QuizNavigation";
@@ -12,6 +12,7 @@ import {
   calculateResult,
   DataItem,
   fetchProduct,
+  setVisibility,
   // isOverflown,
 } from "./utils";
 
@@ -73,7 +74,8 @@ const Quiz: React.FC<QuizProps> = ({
   useEffect(() => {
     if (active) {
       if (currentQuestion === 0) setCurrentQuestion(1); // First Time Active => Trigger Animation
-    }
+      setVisibility(true);
+    } else setVisibility(false);
   }, [active]);
 
   useEffect(() => {
@@ -183,7 +185,7 @@ const Quiz: React.FC<QuizProps> = ({
             setFinishedQuiz={setFinishedQuiz}
           />
         )}
-        <SpecialOffer />
+        {/* <SpecialOffer /> */}
       </QuizCard>
     </animated.div>
   );

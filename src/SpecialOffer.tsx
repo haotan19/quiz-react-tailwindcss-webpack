@@ -23,7 +23,7 @@ const SpecialOffer = () => {
             Get 30% OFF for your first purchase!
           </h4>
           <input
-            className="focus:outline-none mb-2 text-center"
+            className="mb-2 text-center"
             placeholder="Your Beautiful Email"
             style={widthFit}
             onFocus={() => {

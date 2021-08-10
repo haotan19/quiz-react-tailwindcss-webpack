@@ -122,3 +122,16 @@ export function isOverflown(element: Element) {
     element.scrollWidth > element.clientWidth
   );
 }
+
+export function setVisibility(visibility: boolean) {
+  let set;
+  if (visibility) set = "visible";
+  else set = "hidden";
+  document.documentElement.style.setProperty("--quiz-visibility", set);
+
+  // console.log(
+  //   getComputedStyle(document.documentElement).getPropertyValue(
+  //     "--quiz-visibility"
+  //   )
+  // );
+}

@@ -4,6 +4,7 @@ declare global {
   //     }
   var _learnq: any;
 }
+
 export const submitAnswers = (data: string[][]) => {
   try {
     const obj = {};
