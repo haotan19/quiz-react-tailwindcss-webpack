@@ -15,10 +15,6 @@ const SpecialOffer = ({ SOActive, setSOActive }: Props) => {
   const changeEmail = (event: any) => {
     setEmail(event.target.value);
   };
-
-  const widthFit = {
-    width: "fit-content",
-  };
   const zIndex = {
     zIndex: 55,
   };
@@ -38,9 +34,8 @@ const SpecialOffer = ({ SOActive, setSOActive }: Props) => {
           </h4>
           <div className="quiz-newsletter__input-wrapper">
             <input
-              className="quiz-newsletter__input mb-2 text-center"
+              className="quiz-newsletter__input text-center"
               placeholder="Your Beautiful Email"
-              style={widthFit}
               onChange={changeEmail}
             />
             <div className="quiz-newsletter__input-underline"></div>
@@ -48,7 +43,6 @@ const SpecialOffer = ({ SOActive, setSOActive }: Props) => {
           <button
             className="inline-block bg-black text-white uppercase py-2 px-14 
           hover:text-black hover:bg-white border-2 border-opacity-0 hover:border-opacity-100 transition-all"
-            style={widthFit}
             onClick={() => {
               identify(email);
               setSOActive(false);
