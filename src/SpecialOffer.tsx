@@ -28,28 +28,28 @@ const SpecialOffer = ({ SOActive, setSOActive }: Props) => {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center h-2/5">
-          <p className="text-xl">Sign up for our newsletter &</p>
-          <h4 className="text-2xl mb-10">
-            Get 30% OFF for your first purchase!
-          </h4>
+          {/* <p className="text-xl">Sign up for our newsletter &</p> */}
+          <h4 className="text-2xl mb-10">What is your email?</h4>
           <div className="quiz-newsletter__input-wrapper">
             <input
               className="quiz-newsletter__input text-center"
               placeholder="Your Beautiful Email"
               onChange={changeEmail}
             />
-            <div className="quiz-newsletter__input-underline"></div>
+            {/* <div className="quiz-newsletter__input-underline"></div> */}
           </div>
           <button
             className="inline-block bg-black text-white uppercase py-2 px-14 
-          hover:text-black hover:bg-white border-2 border-opacity-0 hover:border-opacity-100 transition-all"
+                      hover:text-black hover:bg-white border-2 border-opacity-0 hover:border-opacity-100 transition-all
+                        quiz-newsletter__next-btn"
             onClick={() => {
               identify(email);
               setSOActive(false);
             }}
           >
-            subscribe
+            NEXT
           </button>
+          <button className="quiz-newsletter__skip-btn">Skip for now</button>
         </div>
         <button
           className="p-2 bg-white absolute top-4 right-0"
