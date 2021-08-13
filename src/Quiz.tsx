@@ -59,8 +59,8 @@ const Quiz: React.FC<QuizProps> = ({
   const [selectedAnswers, setSelectedAnswers] = useState([0]);
   const [answersWeight, setAnswersWeight] = useState([0]);
   const [recommendationBundle, setRecommendationBundle] = useState<any>(null);
-  const [SOActive, setSOActive] = useState(true);
-
+  const [SOActive, setSOActive] = useState(false);
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
 
   useSpring({
     reset: true,
@@ -81,6 +81,10 @@ const Quiz: React.FC<QuizProps> = ({
   }, [active]);
 
   useEffect(() => {
+    if (!emailSubmitted && currentQuestion === 2) {
+      // pop up
+      setSOActive(true);
+    }
     if (currentQuestion > quizData.length) {
       let recommendationResult = calculateResult(
         selectedAnswers,
@@ -105,83 +109,88 @@ const Quiz: React.FC<QuizProps> = ({
   return (
     <animated.div className={active ? "quiz quiz-active" : "quiz"}>
       <QuizCard>
-      <SpecialOffer SOActive={SOActive} setSOActive={setSOActive} />
-        {!SOActive && quizData.map((questionData) => {
-          let wrapperClassName =
-            "w-full h-full absolute top-0 left-1/2 transform -translate-x-1/2 max-w-prose px-6 py-10 md:px-0 flex flex-col";
-          wrapperClassName += " py-8 sm:py-16 md:py-24 overflow-hidden";
+        <SpecialOffer
+          SOActive={SOActive}
+          setSOActive={setSOActive}
+          setEmailSubmitted={setEmailSubmitted}
+        />
+        {!SOActive &&
+          quizData.map((questionData) => {
+            let wrapperClassName =
+              "w-full h-full absolute top-0 left-1/2 transform -translate-x-1/2 max-w-prose px-6 py-10 md:px-0 flex flex-col";
+            wrapperClassName += " py-8 sm:py-16 md:py-24 overflow-hidden";
 
-          let gridClassName =
-            "grid gap-2 grid-cols-2 md:grid-cols-3 mt-6 md:mt-10";
-          let btnClassName = "quiz-btn";
-          let additionalPaddingRight = "";
+            let gridClassName =
+              "grid gap-2 grid-cols-2 md:grid-cols-3 mt-6 md:mt-10";
+            let btnClassName = "quiz-btn";
+            let additionalPaddingRight = "";
 
-          let trailAnimation = false;
+            let trailAnimation = false;
 
-          const answersContainerId = "quiz-ul-" + questionData.id;
+            const answersContainerId = "quiz-ul-" + questionData.id;
 
-          const tooManyCharacters = (text: string) => text.length > 15;
-          if (
-            questionData.answers.some((_answer) =>
-              tooManyCharacters(_answer.text)
-            )
-          ) {
-            gridClassName = "grid gap-2 grid-cols-1 mt-6 md:mt-10";
-            btnClassName += " text-left max-w-prose";
-            additionalPaddingRight = "pr-3";
-          } else {
-            btnClassName += " whitespace-nowrap";
-          }
+            const tooManyCharacters = (text: string) => text.length > 15;
+            if (
+              questionData.answers.some((_answer) =>
+                tooManyCharacters(_answer.text)
+              )
+            ) {
+              gridClassName = "grid gap-2 grid-cols-1 mt-6 md:mt-10";
+              btnClassName += " text-left max-w-prose";
+              additionalPaddingRight = "pr-3";
+            } else {
+              btnClassName += " whitespace-nowrap";
+            }
 
-          if (questionData.id !== currentQuestion) {
-            wrapperClassName += " hidden";
-          } else trailAnimation = true;
+            if (questionData.id !== currentQuestion) {
+              wrapperClassName += " hidden";
+            } else trailAnimation = true;
 
-          const handleAnswerClicked = (answer: Answer) => {
-            setSelectedAnswers((arr) => {
-              const newArr = [...arr];
-              newArr[questionData.id] = answer.bundle;
-              return newArr;
-            });
-            setCurrentQuestion((s) => s + 1);
-          };
+            const handleAnswerClicked = (answer: Answer) => {
+              setSelectedAnswers((arr) => {
+                const newArr = [...arr];
+                newArr[questionData.id] = answer.bundle;
+                return newArr;
+              });
+              setCurrentQuestion((s) => s + 1);
+            };
 
-          return (
-            <div key={questionData.id} className={wrapperClassName}>
-              <h2 className="text-2xl sm:text-3xl normal-case tracking-normal">
-                {questionData.question}
-              </h2>
-              <ul
-                id={answersContainerId}
-                className="flex-1 overflow-y-auto relative"
-              >
-                <Trail open={trailAnimation} className={gridClassName}>
-                  {questionData.answers.map((answer, index) => (
-                    <li
-                      className={additionalPaddingRight}
-                      key={answer.text + index}
-                    >
-                      <button
-                        className={btnClassName}
-                        onClick={() => handleAnswerClicked(answer)}
+            return (
+              <div key={questionData.id} className={wrapperClassName}>
+                <h2 className="text-2xl sm:text-3xl normal-case tracking-normal">
+                  {questionData.question}
+                </h2>
+                <ul
+                  id={answersContainerId}
+                  className="flex-1 overflow-y-auto relative"
+                >
+                  <Trail open={trailAnimation} className={gridClassName}>
+                    {questionData.answers.map((answer, index) => (
+                      <li
+                        className={additionalPaddingRight}
+                        key={answer.text + index}
                       >
-                        {answer.text}
-                      </button>
-                    </li>
-                  ))}
-                </Trail>
-                {/* <WhiteOverlay answersContainerId={answersContainerId} /> */}
-              </ul>
-              <QuizNavigation
-                currentQuestion={currentQuestion}
-                setCurrentQuestion={setCurrentQuestion}
-                length={quizData.length}
-                additionalPaddingRight={additionalPaddingRight}
-                selectedAnswers={selectedAnswers}
-              ></QuizNavigation>
-            </div>
-          );
-        })}
+                        <button
+                          className={btnClassName}
+                          onClick={() => handleAnswerClicked(answer)}
+                        >
+                          {answer.text}
+                        </button>
+                      </li>
+                    ))}
+                  </Trail>
+                  {/* <WhiteOverlay answersContainerId={answersContainerId} /> */}
+                </ul>
+                <QuizNavigation
+                  currentQuestion={currentQuestion}
+                  setCurrentQuestion={setCurrentQuestion}
+                  length={quizData.length}
+                  additionalPaddingRight={additionalPaddingRight}
+                  selectedAnswers={selectedAnswers}
+                ></QuizNavigation>
+              </div>
+            );
+          })}
         {currentQuestion > quizData.length && (
           <QuizResult
             recommendationBundle={recommendationBundle}

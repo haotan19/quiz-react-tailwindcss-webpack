@@ -6,9 +6,10 @@ import { identify } from "./klaviyo";
 interface Props {
   SOActive: boolean;
   setSOActive: React.Dispatch<React.SetStateAction<boolean>>;
+  setEmailSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const SpecialOffer = ({ SOActive, setSOActive }: Props) => {
+const SpecialOffer = ({ SOActive, setSOActive, setEmailSubmitted }: Props) => {
   // const [active, setActive] = useState(true);
   // const [inputActive, setInputActive] = useState(false);
   const [email, setEmail] = useState("");
@@ -50,6 +51,7 @@ const SpecialOffer = ({ SOActive, setSOActive }: Props) => {
               } catch (err) {
                 console.error(err);
               }
+              setEmailSubmitted(true);
               setSOActive(false);
             }}
           >
