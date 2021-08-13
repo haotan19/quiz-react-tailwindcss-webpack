@@ -34,8 +34,15 @@ export const submitAddToCart = (productData: any) => {
   }
 };
 
-export const identify = (email: string) => {
+export const identifyEmail = (email: string) => {
   _learnq.push(['identify', {
     '$email': email
+  }]);
+}
+
+export const identifyName = (firstName: string, lastName: string) => {
+  _learnq.push(['identify', {
+    '$first_name': firstName,
+    '$last_name': lastName
   }]);
 }

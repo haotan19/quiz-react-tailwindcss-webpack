@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { GrClose } from "react-icons/gr";
-import { identify } from "./klaviyo";
+import { identifyEmail } from "./klaviyo";
 
 interface Props {
   SOActive: boolean;
@@ -47,7 +47,7 @@ const SpecialOffer = ({ SOActive, setSOActive, setEmailSubmitted }: Props) => {
                         quiz-newsletter__next-btn"
             onClick={() => {
               try {
-                identify(email);
+                identifyEmail(email);
               } catch (err) {
                 console.error(err);
               }
