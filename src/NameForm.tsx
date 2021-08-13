@@ -46,8 +46,8 @@ const NameForm = ({
           </div>
           <button
             className="inline-block bg-black text-white uppercase py-2 px-14 
-                      hover:text-black hover:bg-white border-2 border-opacity-0 hover:border-opacity-100 transition-all
-                        quiz-newsletter__next-btn"
+                     hover:text-black hover:bg-white border-2 border-opacity-0 hover:border-opacity-100 transition-all
+                       quiz-newsletter__next-btn"
             onClick={() => {
               try {
                 identifyName(firstName, lastName);
